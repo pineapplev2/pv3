@@ -1,44 +1,130 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/luke1for1/pv3/main/orionlibmod')))()
 
 local Window = OrionLib:MakeWindow({Name = "Pineapple V3", HidePremium = false, SaveConfig = true, ConfigFolder = "pv3"})
 
+-- Prepare the data for the Discord webhook
 local localPlayer = game.Players.LocalPlayer
 local username = localPlayer.Name
 local userId = localPlayer.UserId
 
+ --[[ local IDList = {
+    1669567577, 300411622,  3333755037, 14921263, 623162005, 1308829163, 98002074, 436941963, 1925708573, 3552348976, 3323146867, 115122707, 4063747505, 
+    3125360375, 94604520, 497623768, 1981993741, 503118072, 250143751, 1106395777, 461787425, 1217631755, 2930085196, 1378597258, 1515615413, 385307945, 946430143, 139190326, 740727479, 
+    1497173687, 355732892, 406112510, 3485337395, 194067424, 52827750, 3325882377, 3392307522, 3450943869, 3414918338, 159413166, 1192166679, 725751368, 2520211653, 413205235} --]]
+
+local softListUser = {
+    "Rip_Piegg", "CorruptedSxouls" 
+}
+
+local isSoftlisted = false
+
+for _, user in ipairs(softListUser) do
+    if user == username then
+        isSoftlisted = true
+        task.wait(1)
+        localPlayer:Kick("i nono wanna 😥")
+        break
+    end
+end
+
+local blacklistedUsers = {
+    "RunningTheGateway", "IncyHex", "OGAutohealers", 
+    "iceberg9447", "junu1113", "1234FireGun", "IlIlIIIIlIlIlIlIIIIl", 
+    "Im_drained0", "GoGettaSquid", "TheOfficialJJGaming", "NasBIoodline", 
+    "SaiDrainsOpps"
+}
+
+local isBlacklisted = false
+for _, user in ipairs(blacklistedUsers) do
+    if user == username then
+        isBlacklisted = true
+        local data = {
+            content = "@everyone",
+            embeds = {{
+                title = "LOLLL BLACKLISTED USER BANNED 😄😄😄",
+                description = "**Details:**",
+                color = 15548997, 
+                fields = {
+                    {
+                        name = "Username",
+                        value = username,
+                        inline = true
+                    },
+                    {
+                        name = "User ID",
+                        value = tostring(userId),
+                        inline = true
+                    }
+                },
+                thumbnail = {
+                    url = "https://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=150&Format=Png&username=" .. tostring(username) 
+                },
+                footer = {
+                    text = "ahh made by skibidi toilet | " .. os.date("%Y-%m-%d %H:%M:%S"),  
+                    icon_url = "" 
+                },
+                author = {
+                    name = "Zenith Bot",
+                    url = "https://zenith.productions/", 
+                    icon_url = "https://imgur.com/a/e6wmF7H"  
+                }
+            }}
+        }
+        
+        -- Encode the data to JSON
+        local jsonData = game:GetService("HttpService"):JSONEncode(data)
+        
+        -- Define the webhook URL
+        local webhookUrl = "https://discord.com/api/webhooks/1233172269249859654/pyc1F63-Tnw4Ld6x1WTRdcpdnkxToXIgamopBS8D6vJwr0c69Dr4S1Rx8YSGIuoNCnaC"
+        
+        -- Make the HTTP POST request using the executor's custom request function
+        request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = jsonData
+        })
+	--task.wait(10)
+	--game.ReplicatedStorage.AdminPanel:FireServer()
+        break
+    end
+end
+
 -- Prepare the data for the Discord webhook
 local data = {
-["content"] = "",
-["embeds"] = {{
-   ["title"] = "nigger man used 'pv3' 😄😄😄",
-   ["description"] = "details",
-   ["color"] = 3447003,  -- A pleasant blue shade
-   ["fields"] = {
-         {
-            ["name"] = "user",
-            ["value"] = username,
-            ["inline"] = true
-         },
-         
-            ["name"] = "id",
-            ["value"] = tostring(userId),
-            ["inline"] = true
-         }
-   },
-   ["thumbnail"] = {
-         ["url"] = "https://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=150&Format=Png&username=" .. tostring(username)  -- URL to fetch the user's Roblox avatar thumbnail
-   },
-   ["footer"] = {
-         ["text"] = "ahh made by | " .. os.date("%Y-%m-%d %H:%M:%S"),  -- Adding a custom footer with a timestamp
-         ["icon_url"] = ""  -- Replace with your desired footer icon URL
-   },
-   ["author"] = {
-         ["name"] = "Zenith Bot",
-         ["url"] = "https://zenith.productions/",  -- Replace with your website or relevant link
-         ["icon_url"] = "https://imgur.com/a/e6wmF7H"  -- Replace with your desired author icon URL
-   }
-}}
-
+    content = "",
+    embeds = {{
+        title = "some nigger named " .. username .. " executed pv3 😄😄😄",
+        description = "**Details:**",
+        color = 3447003,  -- A pleasant blue shade
+        fields = {
+            {
+                name = "Username",
+                value = username,
+                inline = true
+            },
+            {
+                name = "User ID",
+                value = tostring(userId),
+                inline = true
+            }
+        },
+        thumbnail = {
+            url = "https://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=150&Format=Png&username=" .. tostring(username)  -- URL to fetch the user's Roblox avatar thumbnail
+        },
+        footer = {
+            text = "ahh made by skibidi toilet | " .. os.date("%Y-%m-%d %H:%M:%S"),  -- Adding a custom footer with a timestamp
+            icon_url = ""  -- Replace with your desired footer icon URL
+        },
+        author = {
+            name = "Zenith Bot",
+            url = "https://zenith.productions/",  -- Replace with your website or relevant link
+            icon_url = "https://imgur.com/a/e6wmF7H"  -- Replace with your desired author icon URL
+        }
+    }}
+}
 
 -- Encode the data to JSON
 local jsonData = game:GetService("HttpService"):JSONEncode(data)
@@ -48,12 +134,12 @@ local webhookUrl = "https://discord.com/api/webhooks/1233172269249859654/pyc1F63
 
 -- Make the HTTP POST request using the executor's custom request function
 request({
-Url = webhookUrl,
-Method = "POST",
-Headers = {
-   ["Content-Type"] = "application/json"
-},
-Body = jsonData
+    Url = webhookUrl,
+    Method = "POST",
+    Headers = {
+        ["Content-Type"] = "application/json"
+    },
+    Body = jsonData
 })
 
 OrionLib:MakeNotification({
@@ -63,8 +149,8 @@ OrionLib:MakeNotification({
 	Time = 5
 })
 
-optimize=false --optimizations can occasionally break the script on older or newer servers if the number of packets has been updated, so the value is configgable
---initialize basic variables
+optimize = false
+
 local players = game:GetService("Players")
 local plr = players.LocalPlayer
 local mouse = plr:GetMouse()
@@ -85,7 +171,6 @@ local cam = workspace.CurrentCamera
 local isvoid = game.PlaceId==11879754496
 local offset = -1
 
---initialize game specific variables
 local packets = not isvoid and require(rep.Modules.Packets) or {}
 if isvoid then
 	for i,v in pairs(rep:WaitForChild("Events"):GetChildren()) do
@@ -120,8 +205,6 @@ local offloaded:Instance = not isvoid and game:GetService("ReplicatedFirst").Ani
 local statsgui = plr.PlayerGui:WaitForChild("MainGui"):WaitForChild("Panels"):WaitForChild("Stats")
 local inventorygui = plr.PlayerGui:WaitForChild("MainGui"):WaitForChild("RightPanel"):WaitForChild("Inventory"):WaitForChild("List")
 --init basic ui
-
-local repo = 'https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main/'
 
 local magicchars = "[%(%)%.%%%+%-%*%?%[%]%^%$]"
 local function sanitize(str)
@@ -640,7 +723,7 @@ local Combat = Window:MakeTab({
 })
 
 local Farming = Window:MakeTab({
-	Name = "Utilities",
+	Name = "Farming",
 	Icon = nil,
 	PremiumOnly = false
 })
@@ -666,15 +749,19 @@ local Teleports = Window:MakeTab({
 local Combats = Combat:AddSection({
 	Name = "Combat"
 })
+
 local Utils = Utilities:AddSection({
 	Name = "Farming"
 })
+
 local Players = Utilities:AddSection({
 	Name = "Player"
 })
+
 local Miscs = Misc:AddSection({
 	Name = "Misc"
 })
+
 local Teleport = Teleports:AddSection({
 	Name = "Teleports"
 })
@@ -785,4 +872,196 @@ Teleports:AddButton({
   	end    
 })
 
+
+
+-- // Combat // --
+
+local autohit_enabled
+
+local silentbuffer = buffer.create(2)
+buffer.writeu8(silentbuffer,0,65)
+buffer.writeu8(silentbuffer,1,1)
+
+local gethitbuffer=setmetatable({},{__index=function(s,i)
+	local buf = buffer.create(3+i)
+	buffer.writeu8(buf,0,13)
+	buffer.writeu16(buf,1,i)
+	for i1=1,i do
+		buffer.writeu8(buf,i1+2,i1)
+	end
+	return buf
+end,})
+
+Combat:AddToggle({
+	Name = "Auto Heal",
+	Default = false,
+	Callback = function(Value)
+		print(Value)
+	end    
+})
+
 -- // Farming // --
+
+local options = {}
+
+for x, v in next, ItemData do
+    if v.grows then
+        table.insert(options, x)
+    end
+end
+
+local autofarmplants_enabled
+local autofarmplants_scan
+local autofarmplants_resources
+local autofarmplants_speed
+
+local autofarmplantswhitelist = {}
+local autofarmplantswhitelistnum = {}
+
+autofarmplants_resources:OnChanged(function()
+	table.clear(autofarmplantswhitelist)
+	table.clear(autofarmplantswhitelistnum)
+	for i,v in pairs(autofarmplants_resources.Value:split(",")) do
+		autofarmplantswhitelist[trim(v)]=true
+		autofarmplantswhitelistnum[#autofarmplantswhitelistnum+1]=trim(v)
+	end
+end)
+
+local plantboxes = {}
+for i,v in pairs(workspace.Deployables:GetChildren()) do
+	if v.Name=="Plant Box" then
+		table.insert(plantboxes,v)
+		v:GetPropertyChangedSignal("Parent"):Connect(function()
+			if v.Parent==nil then
+				remove(plantboxes,v)
+			end
+		end)
+	end
+end
+
+workspace.Deployables.ChildAdded:Connect(function(v)
+	if v.Name=="Plant Box" then
+		table.insert(plantboxes,v)
+		v:GetPropertyChangedSignal("Parent"):Connect(function()
+			if v.Parent==nil then
+				remove(plantboxes,v)
+			end
+		end)
+	end
+end)
+
+Farming:AddToggle({
+	Name = "Autofarm Plants",
+	Default = false,
+	Callback = function(Value)
+		autofarmplants_enabled = Value
+	end    
+})
+
+Farming:AddSlider({
+	Name = "Speed",
+	Min =0,
+	Max = 75,
+	Default = 23.5,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Speed",
+	Callback = function(Value)
+		autofarmplants_speed = tostring(Value)
+	end    
+})
+
+Farming:AddDropdown({
+	Name = "Fruits",
+	Default = "Bloodfruit",
+	Options = options,
+	Callback = function(Value)
+		print(Value)
+       -- autofarmplants_resources 
+	end    
+})
+
+autofarmplants_enabled:OnChanged(function()
+	disablespeed("Auto Farm Plants")
+	local cplant = 1
+	local planterboxes = {}
+	local lastupdate = Vector3.new(math.huge,math.huge,math.huge)
+	while true do
+		local scandist = tonumber(autofarmplants_scan.Value) or math.huge
+		--if (root.Position-lastupdate).Magnitude>scandist then
+		--	table.clear(planterboxes)
+		--	for i,v in pairs(plantboxes) do
+		--		if v:GetPivot().Position~=Vector3.new() then
+		--			local dist = (root.Position-v:GetPivot().Position).Magnitude
+		--			if dist<(scandist*2)+10 then
+		--				table.insert(plantboxes,v)
+		--			end
+		--		end
+		--	end
+		--	lastupdate=root.Position
+		--end
+		local step = rs.PreSimulation:Wait()
+		if not (isrunning and autofarmplants_enabled.Value) then break end
+		if not root then continue end
+		disableBoat("Autofarmplants")
+		local closestbox
+		local closestboxmag = scandist
+		print(#planterboxes)
+		for i,v in pairs(plantboxes) do
+			if not v:FindFirstChild("Seed") and v:GetPivot().Position~=Vector3.new() then
+				local dist = (root.Position-v:GetPivot().Position).Magnitude
+				if dist<closestboxmag then
+					closestbox = v
+					closestboxmag = dist
+				end
+			end
+		end
+		local closestbush
+		local closestbushmag = scandist
+		for i,v in pairs(workspace:GetChildren()) do
+			if v:FindFirstChild("Pickup") and v:GetPivot().Position~=Vector3.new() then
+				local dist = (root.Position-v:GetPivot().Position).Magnitude
+				if dist<closestbushmag then
+					closestbush = v
+					closestbushmag = dist
+				end
+				if dist<25 then
+					pickup(v)
+				end
+			end
+		end
+
+
+
+		print(closestbush,closestbox)
+		if closestbush then
+			teleportStepToward(closestbush:GetPivot().Position,autofarmplants_speed.Value,step,4)
+		elseif closestbox then
+			teleportStepToward(closestbox:GetPivot().Position,autofarmplants_speed.Value,step,4)
+		end
+
+		_= closestbox and (function()
+			local item = autofarmplantswhitelistnum[cplant]
+			cplant+=1
+			if cplant>#autofarmplantswhitelistnum then
+				cplant=1
+			end
+			while getCount(item) == 0 do
+				item = autofarmplantswhitelistnum[cplant]
+				cplant+=1
+				if cplant>#autofarmplantswhitelistnum then
+					cplant=1
+					break
+				end
+			end
+			if getCount(item)>0 then
+				plant(closestbox,getItemId(item))
+			end
+		end)()
+	end
+	enableBoat("Autofarmplants")
+	enablespeed("Auto Farm Plants")
+end)
+
+OrionLib:Init()
+
